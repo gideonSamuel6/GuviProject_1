@@ -9,13 +9,13 @@ import re
 # Define API version and service name
 api_service_name = "youtube"
 api_version = "v3"
-api_key="AIzaSyClsFHHovqv5ZwS1qga6VHV_DwQOjgU7-Y"
+api_key="***********************"
 
 youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=api_key)
 
 #Function to fetch the data from MYSQL Database
 def fetch_data(query):
-    mydb = mysql.connector.connect(host="localhost", user="root", password="Gidisam@653", database="youtube_data")
+    mydb = mysql.connector.connect(host="localhost", user="root", password="********", database="youtube_data")
     df = pd.read_sql(query, mydb)
     mydb.close()
     return df
@@ -86,7 +86,7 @@ def execute_query(question):
 #Function to fetch the channel details using API key
 def fetch_channel_data(newchannel_id):
     try:
-        mydb = mysql.connector.connect(host="localhost", user="root", password="Gidisam@653", database="youtube_data")
+        mydb = mysql.connector.connect(host="localhost", user="root", password="*********", database="youtube_data")
         cursor = mydb.cursor()
         cursor.execute("SELECT * FROM channels WHERE channel_id = %s", (newchannel_id,))
         existing_channel = cursor.fetchone()
@@ -198,7 +198,7 @@ def fetch_video_data(all_video_ids):
             video_info.append(given)
             
     #Inserting the fetched data into MSQL database          
-    mydb = mysql.connector.connect(host="localhost", user="root", password="Yourmysql_password", database="youtube_data")
+    mydb = mysql.connector.connect(host="localhost", user="root", password="**********", database="youtube_data")
     cursor = mydb.cursor()
     for all in video_info:
         cursor.execute("""INSERT INTO videos (Video_Id, Video_title, Video_Description,channel_id,video_Tags, Video_pubdate,Video_viewcount, 
@@ -239,7 +239,7 @@ def Fetch_comment_data(newchannel_id):
                 pass
                 
     #Inserting the fetched data into MSQL database   
-    mydb = mysql.connector.connect(host="localhost", user="root", password="Yourmysql_password", database="youtube_data")
+    mydb = mysql.connector.connect(host="localhost", user="root", password="*********", database="youtube_data")
     cursor = mydb.cursor()
     for comment in commentdata:
         cursor.execute("""INSERT INTO comments (comment_id,Comment_Text, Comment_Authorname,published_date,video_id,channel_id)
